@@ -1,0 +1,11 @@
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Common\bin\Release\net6.0\Common.deps.json
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Common\bin\Release\net6.0\Common.dll
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Common\bin\Release\net6.0\Common.pdb
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Common\obj\Release\net6.0\Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Common\obj\Release\net6.0\Common.AssemblyInfoInputs.cache
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Common\obj\Release\net6.0\Common.AssemblyInfo.cs
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Common\obj\Release\net6.0\Common.csproj.CoreCompileInputs.cache
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Common\obj\Release\net6.0\Common.dll
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Common\obj\Release\net6.0\refint\Common.dll
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Common\obj\Release\net6.0\Common.pdb
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Common\obj\Release\net6.0\ref\Common.dll
