@@ -1,0 +1,9 @@
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Services\bin\Release\net6.0\publish\Services.dll
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Services\bin\Release\net6.0\publish\Services.deps.json
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Services\bin\Release\net6.0\publish\Services.pdb
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Services\bin\Release\net6.0\publish\BCrypt.Net-Next.dll
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Services\bin\Release\net6.0\publish\FluentValidation.dll
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Services\bin\Release\net6.0\publish\Common.dll
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Services\bin\Release\net6.0\publish\Domain.dll
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Services\bin\Release\net6.0\publish\Common.pdb
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\Services\bin\Release\net6.0\publish\Domain.pdb
