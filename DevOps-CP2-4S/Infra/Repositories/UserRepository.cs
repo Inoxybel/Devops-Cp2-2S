@@ -49,6 +49,44 @@ public class UserRepository : IUserRepository
         }
     }
 
+    public async Task<ServiceResult<bool>> Update(User modifiedUser, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var filterDefinition = Builders<User>.Filter.Eq(u => u.Id, modifiedUser.Id);
+
+            var updateDefinitions = new List<UpdateDefinition<User>>();
+
+            if (modifiedUser.Name != null)
+                updateDefinitions.Add(Builders<User>.Update.Set(u => u.Name, modifiedUser.Name));
+
+            if (modifiedUser.Email != null)
+                updateDefinitions.Add(Builders<User>.Update.Set(u => u.Email, modifiedUser.Email));
+
+            if (modifiedUser.CompanyRef != null)
+                updateDefinitions.Add(Builders<User>.Update.Set(u => u.CompanyRef, modifiedUser.CompanyRef));
+
+            if (modifiedUser.IsActivated != null)
+                updateDefinitions.Add(Builders<User>.Update.Set(u => u.IsActivated, true));
+
+            if (!updateDefinitions.Any())
+                return ServiceResult<bool>.MakeErrorResult("No fields to update.");
+
+            var combinedUpdate = Builders<User>.Update.Combine(updateDefinitions);
+
+            var result = await _dbContext.User.UpdateOneAsync(filterDefinition, combinedUpdate, null, cancellationToken);
+
+            if (result.ModifiedCount > 0)
+                return ServiceResult<bool>.MakeSuccessResult(true);
+
+            return ServiceResult<bool>.MakeErrorResult("Error: user not updated.");
+        }
+        catch
+        {
+            return ServiceResult<bool>.MakeErrorResult("Error: user not updated.");
+        }
+    }
+
     public async Task<ServiceResult<bool>> Update(User userRecovered, UserUpdateRequest user, CancellationToken cancellationToken = default)
     {
         try
@@ -93,7 +131,8 @@ public class UserRepository : IUserRepository
                         Name = user.Name,
                         Cpf = user.Cpf,
                         Email = user.Email,
-                        CompanyRef = user.CompanyRef
+                        CompanyRef = user.CompanyRef,
+                        IsActivated = user.IsActivated
                     };
 
                     return ServiceResult<UserResponse>.MakeSuccessResult(userResponse);
@@ -146,6 +185,36 @@ public class UserRepository : IUserRepository
         catch
         {
             return ServiceResult<bool>.MakeErrorResult("Error on password update process."); ;
+        }
+    }
+
+    public async Task<ServiceResult<bool>> TempDelete(string userId, string password, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var user = await _dbContext.User.Find(u => u.Id == userId)
+                .FirstOrDefaultAsync(cancellationToken);
+
+            if (user is not null)
+            {
+                if (BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+                {
+                    var result = await _dbContext.User.DeleteOneAsync(u => u.Id == userId, cancellationToken);
+
+                    if (result.DeletedCount > 0)
+                        return ServiceResult<bool>.MakeSuccessResult(true);
+
+                    return ServiceResult<bool>.MakeSuccessResult(true);
+                }
+
+                return ServiceResult<bool>.MakeErrorResult("Invalid Credentials");
+            }
+
+            return ServiceResult<bool>.MakeErrorResult("User not found.");
+        }
+        catch
+        {
+            return ServiceResult<bool>.MakeErrorResult("Error on validation process.");
         }
     }
 }

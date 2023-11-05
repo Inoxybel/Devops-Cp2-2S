@@ -1,0 +1,12 @@
+{
+  "_id": "248e4b9c-c1b0-40ea-b4b6-d477683f3bbe",
+  "code": "573409",
+  "userId": "3ebc1ce6-ca3a-4994-bb3c-c20289e0c8a0",
+  "used": true,
+  "createdDate": {
+    "$date": "2023-11-05T21:06:41.403Z"
+  },
+  "updatedDate": {
+    "$date": "2023-11-05T21:07:52.730Z"
+  }
+}

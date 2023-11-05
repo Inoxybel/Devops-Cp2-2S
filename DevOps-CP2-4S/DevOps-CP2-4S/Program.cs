@@ -29,6 +29,7 @@ namespace DevOps_CP2_4S
             MongoConfiguration.RegisterConfigurations();
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IActivationCodeService, ActivationCodeService>();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

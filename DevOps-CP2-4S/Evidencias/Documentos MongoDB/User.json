@@ -1,0 +1,9 @@
+{
+  "_id": "3ebc1ce6-ca3a-4994-bb3c-c20289e0c8a0",
+  "name": "Thiago",
+  "cpf": "59577342094",
+  "email": "thiago@iacademy.tech",
+  "passwordHash": "$2a$11$Z4dNCVJ/FUGDUIMhSvy6rO/jMPhO0UNnPn3ensKXnlRLsTCA1M7t.",
+  "companyRef": "Default",
+  "isActivated": true
+}

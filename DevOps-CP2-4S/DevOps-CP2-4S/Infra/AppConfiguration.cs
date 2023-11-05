@@ -34,6 +34,7 @@ public static class AppConfiguration
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IActivationCodeRepository, ActivationCodeRepository>();
 
         services.AddSingleton<DbContext>();
         return services;

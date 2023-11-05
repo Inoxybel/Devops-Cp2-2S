@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Entities;
+﻿namespace Domain.Entities;
 
 public class User
 {
@@ -14,4 +8,5 @@ public class User
     public string Email { get; set; }
     public string PasswordHash { get; set; }
     public string CompanyRef { get; set; }
+    public bool IsActivated { get; set; }
 }

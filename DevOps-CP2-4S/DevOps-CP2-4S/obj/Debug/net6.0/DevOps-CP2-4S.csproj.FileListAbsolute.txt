@@ -1,5 +1,6 @@
 C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\DevOps-CP2-4S\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\DevOps-CP2-4S\bin\Debug\net6.0\appsettings.json
+C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\DevOps-CP2-4S\bin\Debug\net6.0\appsettings.Production.json
 C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\DevOps-CP2-4S\bin\Debug\net6.0\DevOps-CP2-4S.exe
 C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\DevOps-CP2-4S\bin\Debug\net6.0\DevOps-CP2-4S.deps.json
 C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\DevOps-CP2-4S\bin\Debug\net6.0\DevOps-CP2-4S.runtimeconfig.json
@@ -66,4 +67,3 @@ C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP
 C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\DevOps-CP2-4S\obj\Debug\net6.0\DevOps-CP2-4S.pdb
 C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\DevOps-CP2-4S\obj\Debug\net6.0\DevOps-CP2-4S.genruntimeconfig.cache
 C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\DevOps-CP2-4S\obj\Debug\net6.0\ref\DevOps-CP2-4S.dll
-C:\Users\thdev\Documentos\Fiap\DevOps Tools and Cloud Computing\CP5\My\DevOps-CP2-4S\DevOps-CP2-4S\bin\Debug\net6.0\appsettings.Production.json

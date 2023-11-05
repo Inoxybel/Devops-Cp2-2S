@@ -1,5 +1,6 @@
 ﻿using Common.DTO;
 using Common.Helpers;
+using Domain.Entities;
 using Domain.Interfaces.Infra;
 using Domain.Interfaces.Services;
 
@@ -8,11 +9,14 @@ namespace Services;
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IActivationCodeService _activationCodeService;
 
     public UserService(
-        IUserRepository userRepository)
+        IUserRepository userRepository,
+        IActivationCodeService activationCodeService)
     {
         _userRepository = userRepository;
+        _activationCodeService = activationCodeService;
     }
 
     public async Task<UserResponse> Get(string userId, CancellationToken cancellationToken = default)
@@ -51,10 +55,14 @@ public class UserService : IUserService
         {
             userId = await _userRepository.Save(user, cancellationToken);
 
+            await MakeActivationCode(userId, cancellationToken);
+
             return MakeReturn(userId);
         }
 
         userId = await _userRepository.Save(user, cancellationToken);
+
+        await MakeActivationCode(userId, cancellationToken);
 
         return MakeReturn(userId);
     }
@@ -99,5 +107,41 @@ public class UserService : IUserService
             return ServiceResult<string>.MakeErrorResult("Error on save process.");
 
         return ServiceResult<string>.MakeSuccessResult(userId);
+    }
+
+    public async Task<ServiceResult<bool>> TempDelete(string userId, string password, CancellationToken cancellationToken = default)
+    {
+        return await _userRepository.TempDelete(userId, password, cancellationToken);
+    }
+
+    public async Task<bool> ActivateUser(string userId, string activationCodeId, CancellationToken cancellationToken = default)
+    {
+        var userRecovered = await _userRepository.GetById(userId, cancellationToken);
+
+        if (userRecovered is null)
+            return false;
+
+        userRecovered.IsActivated = true;
+
+        var inactivateCodeResult = await _activationCodeService.Update(activationCodeId, cancellationToken);
+
+        if (!inactivateCodeResult)
+            return false;
+
+        return _userRepository.Update(userRecovered, cancellationToken).Result.Success;
+    }
+
+    private async Task MakeActivationCode(string userId, CancellationToken cancellationToken)
+    {
+        var random = new Random();
+
+        var activationCode = new ActivationCode()
+        {
+            Id = Guid.NewGuid().ToString(),
+            UserId = userId,
+            Code = random.Next(100000, 1000000).ToString()
+        };
+
+        _ = await _activationCodeService.Save(activationCode, cancellationToken);
     }
 }

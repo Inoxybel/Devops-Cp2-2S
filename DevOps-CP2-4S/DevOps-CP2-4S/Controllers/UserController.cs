@@ -1,7 +1,7 @@
 ﻿using Common.DTO;
 using Domain.Interfaces.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Services;
 using System.Net.Mime;
 
 namespace DevOps_CP2_4S.Controllers;
@@ -13,13 +13,16 @@ public class UserController : ControllerBase
 {
     private readonly ILogger<UserController> _logger;
     private readonly IUserService _userService;
+    private readonly IActivationCodeService _activationCodeService;
 
     public UserController(
         ILogger<UserController> logger,
-        IUserService userService)
+        IUserService userService,
+        IActivationCodeService activationCodeService)
     {
         _logger = logger;
         _userService = userService;
+        _activationCodeService = activationCodeService;
     }
 
     /// <summary>
@@ -32,7 +35,6 @@ public class UserController : ControllerBase
     /// Name - Nome do usuario (minimo de 3 caracteres)
     /// Email - Email do usuario
     /// CompanyRef - Cnpj da empresa que o usuario esta agregado</returns>
-    [Authorize]
     [HttpGet("{userId}")]
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
@@ -93,7 +95,6 @@ public class UserController : ControllerBase
     /// <param name="userRequest">Objeto contendo os novos dados a serem salvos. PS: CompanyRef e opcional.</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
     /// <returns></returns>
-    [Authorize]
     [HttpPut("{userId}")]
     [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
@@ -114,6 +115,49 @@ public class UserController : ControllerBase
         {
             _logger.LogError(ex, "Error updating user with ID: {UserId}", userId);
             return BadRequest();
+        }
+    }
+
+    /// <summary>
+    /// Endpoint para ativar um usuario recem cadastrado
+    /// </summary>
+    /// <param name="userId">Identificacao do usuario (GUID de 36 caracteres)</param>
+    /// <param name="code">Codigo de 6 digitos numericos</param>
+    /// <param name="cancellationToken">Token de cancelamento</param>
+    /// <returns>Action Result</returns>
+    [HttpPost("{userId}/active/{code}")]
+    [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> ActiveUser([FromRoute] string userId, [FromRoute] string code, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var user = await _userService.Get(userId, cancellationToken);
+
+            if (string.IsNullOrEmpty(user.Id))
+                return BadRequest("User not found");
+
+            if (user.IsActivated)
+                return Ok("User is already active");
+
+            var activationCode = await _activationCodeService.Get(userId, cancellationToken);
+
+            if (string.IsNullOrEmpty(activationCode.Id))
+                return BadRequest("Code not found");
+
+            if (code != activationCode.Code)
+                return BadRequest("Invalid code for this user");
+
+            var activationUserResponse = await _userService.ActivateUser(userId, activationCode.Id, cancellationToken);
+
+            if (!activationUserResponse)
+                return BadRequest("Error to validate user");
+
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"An error occoured: {ex}");
         }
     }
 
@@ -139,6 +183,9 @@ public class UserController : ControllerBase
             if (string.IsNullOrEmpty(validateResult.Data?.Id))
                 return Unauthorized("Invalid credentials");
 
+            if (!validateResult.Data.IsActivated)
+                return Unauthorized("User is not active");
+
             return Ok(new LoginResponse
             {
                 Id = validateResult.Data.Id,
@@ -163,7 +210,6 @@ public class UserController : ControllerBase
     /// <param name="updatePasswordRequest">Objeto contendo informacoes das credenciais</param>
     /// <param name="cancellationToken">Token de cancelamento</param>
     /// <returns></returns>
-    [Authorize]
     [HttpPut("{userId}/update-password")]
     [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
@@ -182,6 +228,32 @@ public class UserController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error updating password for user with ID: {UserId}", userId);
+            return BadRequest();
+        }
+    }
+
+    /// <summary>
+    /// Deletar usuario
+    /// </summary>
+    /// <param name="userId">Idenificacao do usuario (GUID de 36 caracteres)</param>
+    /// <param name="password">Senha do usuário</param>
+    /// <param name="cancellationToken">Token de cancelamento</param>
+    /// <returns></returns>
+    [HttpDelete("{userId}/{password}/delete")]
+    [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteUser([FromRoute] string userId, [FromRoute] string password, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            var result = await _userService.TempDelete(userId, password, cancellationToken);
+
+            return result.Success ? NoContent() : BadRequest(result.ErrorMessage);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error during user deletion with ID: {UserId}", userId);
             return BadRequest();
         }
     }

@@ -7,4 +7,5 @@ public class UserResponse
     public string Cpf { get; set; }
     public string Email { get; set; }
     public string CompanyRef { get; set; }
+    public bool IsActivated { get; set; }
 }
