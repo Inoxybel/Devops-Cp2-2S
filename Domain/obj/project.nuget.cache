@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "B9wtWXhEEOO2QD18zrnVxzFojfHXp1/xU8vrMR83tIv9BY2Eu9WJ8kLEAjha7AAeaeXsBArRcGB/pE8s7cUhNQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\thdev\\OneDrive\\Documentos\\Estudos\\FIAP\\DevOps\\CP2 - Refactor\\Devops-Cp2-2S\\Domain\\Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\thdev\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\thdev\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512"
+  ],
+  "logs": []
+}

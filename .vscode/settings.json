@@ -1,4 +1,0 @@
-{
-    "appService.defaultWebAppToDeploy": "/subscriptions/981e20b3-6573-4c66-8577-2154f9361a71/resourceGroups/DefaultResourceGroup-EUS/providers/Microsoft.Web/sites/DevOps-CP2-4S20231008181923",
-    "appService.deploySubpath": "."
-}
